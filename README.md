@@ -77,3 +77,8 @@ Functions
 ------------
 
 [Core](https://github.com/thienhungho/yii2-customer-management/tree/master/src/functions/core.php)
+
+Models
+------------
+
+[Customer](https://github.com/thienhungho/yii2-customer-management/tree/master/src/models/Customer.php), [CustomerBillingAddress](https://github.com/thienhungho/yii2-customer-management/tree/master/src/models/CustomerBillingAddress.php), [CustomerNote](https://github.com/thienhungho/yii2-customer-management/tree/master/src/models/CustomerNote.php), [CustomerReminders](https://github.com/thienhungho/yii2-customer-management/tree/master/src/models/CustomerReminders.php), [CustomerShippingAddress](https://github.com/thienhungho/yii2-customer-management/tree/master/src/models/CustomerShippingAddress.php)
