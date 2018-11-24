@@ -20,7 +20,7 @@ use yii\helpers\Html;
         <!--        --><? //= $form->field($model, 'user_id', [
         //            'addon' => ['prepend' => ['content' => '<span class="fa fa-user"></span>']],
         //        ])->widget(\kartik\widgets\Select2::classname(), [
-        //            'data'          => \yii\helpers\ArrayHelper::map(\thienhungho\UserManagement\modules\UserBase\User::find()->orderBy('id')->asArray()->all(), 'id', 'username'),
+        //            'data'          => \yii\helpers\ArrayHelper::map(\thienhungho\UserManagement\models\User::find()->orderBy('id')->asArray()->all(), 'id', 'username'),
         //            'options'       => ['placeholder' => Yii::t('app', 'Choose User')],
         //            'pluginOptions' => [
         //                'allowClear' => true,

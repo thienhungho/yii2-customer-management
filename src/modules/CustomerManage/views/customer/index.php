@@ -62,7 +62,7 @@ $this->registerJs($search);
             'attribute' => 'avatar',
             'value'     => function($model, $key, $index, $column) {
                 return Html::a(
-                    '<img style="max-width: 50px;" src=/' . \common\modules\media\Media::getOtherSizePath('thumbnail', $model->avatar) . '>',
+                    '<img style="max-width: 50px;" src=/' . get_other_img_size_path('thumbnail', $model->avatar) . '>',
                     \yii\helpers\Url::to(['/']), [
                     'data-pjax' => '0',
                     'target'    => '_blank',
@@ -80,7 +80,7 @@ $this->registerJs($search);
         //                }
         //            },
         //            'filterType'          => GridView::FILTER_SELECT2,
-        //            'filter'              => \yii\helpers\ArrayHelper::map(\thienhungho\UserManagement\modules\UserBase\User::find()->asArray()->all(), 'id', 'username'),
+        //            'filter'              => \yii\helpers\ArrayHelper::map(\thienhungho\UserManagement\models\User::find()->asArray()->all(), 'id', 'username'),
         //            'filterWidgetOptions' => [
         //                'pluginOptions' => ['allowClear' => true],
         //            ],

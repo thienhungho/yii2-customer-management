@@ -7,7 +7,7 @@ namespace thienhungho\CustomerManagement\modules\CustomerBase\query;
  *
  * @see \thienhungho\CustomerManagement\modules\CustomerBase\query\CustomerShippingAddress
  */
-class CustomerShippingAddressQuery extends \yii\db\ActiveQuery
+class CustomerShippingAddressQuery extends \thienhungho\ActiveQuery\models\ActiveQuery
 {
     /*public function active()
     {

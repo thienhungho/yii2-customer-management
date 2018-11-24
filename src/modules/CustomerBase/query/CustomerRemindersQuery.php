@@ -7,7 +7,7 @@ namespace thienhungho\CustomerManagement\modules\CustomerBase\query;
  *
  * @see \thienhungho\CustomerManagement\modules\CustomerBase\query\CustomerReminders
  */
-class CustomerRemindersQuery extends \yii\db\ActiveQuery
+class CustomerRemindersQuery extends \thienhungho\ActiveQuery\models\ActiveQuery
 {
     /*public function active()
     {

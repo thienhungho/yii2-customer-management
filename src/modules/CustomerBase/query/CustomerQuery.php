@@ -7,7 +7,7 @@ namespace thienhungho\CustomerManagement\modules\CustomerBase\query;
  *
  * @see \thienhungho\CustomerManagement\modules\CustomerBase\query\Customer
  */
-class CustomerQuery extends \yii\db\ActiveQuery
+class CustomerQuery extends \thienhungho\ActiveQuery\models\ActiveQuery
 {
     /*public function active()
     {
