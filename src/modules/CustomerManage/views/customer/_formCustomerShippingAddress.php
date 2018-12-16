@@ -1,6 +1,6 @@
 <div class="form-group" id="add-customer-shipping-address">
 <?php
-use kartik\grid\GridView;
+use thienhungho\Widgets\models\GridView;
 use kartik\builder\TabularForm;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Html;

@@ -4,7 +4,7 @@
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-use kartik\grid\GridView;
+use thienhungho\Widgets\models\GridView;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Customer');
@@ -57,7 +57,7 @@ $this->registerJs($search);
             'visible'   => false,
         ],
         [
-            'class'     => \yii\grid\DataColumn::className(),
+            'class'     => \kartik\grid\DataColumn::className(),
             'format'    => 'raw',
             'attribute' => 'avatar',
             'value'     => function($model, $key, $index, $column) {
@@ -68,6 +68,7 @@ $this->registerJs($search);
                     'target'    => '_blank',
                 ]);
             },
+            'vAlign'    => GridView::ALIGN_MIDDLE,
         ],
         //        [
         //            'attribute'           => 'user_id',
@@ -89,21 +90,36 @@ $this->registerJs($search);
         //                'id'          => 'grid-customer-search-user_id',
         //            ],
         //        ],
-        'first_name',
-        'last_name',
+        [
+            'attribute' => 'first_name',
+            'vAlign'    => GridView::ALIGN_MIDDLE,
+        ],
+        [
+            'attribute' => 'last_name',
+            'vAlign'    => GridView::ALIGN_MIDDLE,
+        ],
         [
             'format'    => 'raw',
             'attribute' => 'phone',
             'value'     => function($model, $key, $index, $column) {
                 return Html::a($model->phone, 'tel:' . $model->phone);
             },
+            'vAlign'    => GridView::ALIGN_MIDDLE,
         ],
-        'email:email',
+        [
+            'attribute' => 'email',
+            'format'    => 'email',
+            'vAlign'    => GridView::ALIGN_MIDDLE,
+        ],
         grid_language_column(),
-        'country',
+        [
+            'attribute' => 'country',
+            'vAlign'    => GridView::ALIGN_MIDDLE,
+        ],
         [
             'format'              => 'raw',
             'attribute'           => 'status',
+            'vAlign'              => GridView::ALIGN_MIDDLE,
             'value'               => function($model, $key, $index, $column) {
                 if ($model->status == STATUS_PENDING) {
                     return '<span class="label-warning label">' . t('app', slug_to_text(STATUS_PENDING)) . '</span>';
@@ -151,6 +167,7 @@ $this->registerJs($search);
         [
             'format'              => 'raw',
             'attribute'           => 'type',
+            'vAlign'              => GridView::ALIGN_MIDDLE,
             'value'               => function($model, $key, $index, $column) {
                 if ($model->type == 'enterprise') {
                     return '<span class="label-warning label">' . t('app', 'Enterprise') . '</span>';

@@ -50,25 +50,29 @@ class CustomerController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $providerCustomerBillingAddress = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->customerBillingAddresses,
-        ]);
-        $providerCustomerNote = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->customerNotes,
-        ]);
-        $providerCustomerReminders = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->customerReminders,
-        ]);
-        $providerCustomerShippingAddress = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->customerShippingAddresses,
-        ]);
+//        $providerCustomerBillingAddress = new \yii\data\ArrayDataProvider([
+//            'allModels' => $model->customerBillingAddresses,
+//        ]);
+//        $providerCustomerNote = new \yii\data\ArrayDataProvider([
+//            'allModels' => $model->customerNotes,
+//        ]);
+//        $providerCustomerReminders = new \yii\data\ArrayDataProvider([
+//            'allModels' => $model->customerReminders,
+//        ]);
+//        $providerCustomerShippingAddress = new \yii\data\ArrayDataProvider([
+//            'allModels' => $model->customerShippingAddresses,
+//        ]);
+//
+//        return $this->render('view', [
+//            'model'                           => $model,
+//            'providerCustomerBillingAddress'  => $providerCustomerBillingAddress,
+//            'providerCustomerNote'            => $providerCustomerNote,
+//            'providerCustomerReminders'       => $providerCustomerReminders,
+//            'providerCustomerShippingAddress' => $providerCustomerShippingAddress,
+//        ]);
 
-        return $this->render('view', [
-            'model'                           => $this->findModel($id),
-            'providerCustomerBillingAddress'  => $providerCustomerBillingAddress,
-            'providerCustomerNote'            => $providerCustomerNote,
-            'providerCustomerReminders'       => $providerCustomerReminders,
-            'providerCustomerShippingAddress' => $providerCustomerShippingAddress,
+        return $this->render('update', [
+            'model' => $model,
         ]);
     }
 
@@ -85,7 +89,7 @@ class CustomerController extends Controller
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             return $this->redirect([
-                'view',
+                'update',
                 'id' => $model->id,
             ]);
         } else {
