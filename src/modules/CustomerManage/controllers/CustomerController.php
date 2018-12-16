@@ -4,6 +4,7 @@ namespace thienhungho\CustomerManagement\modules\CustomerManage\controllers;
 
 use thienhungho\CustomerManagement\modules\CustomerBase\Customer;
 use thienhungho\CustomerManagement\modules\CustomerManage\search\CustomerSearch;
+use thienhungho\UserManagement\models\User;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -50,27 +51,26 @@ class CustomerController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-//        $providerCustomerBillingAddress = new \yii\data\ArrayDataProvider([
-//            'allModels' => $model->customerBillingAddresses,
-//        ]);
-//        $providerCustomerNote = new \yii\data\ArrayDataProvider([
-//            'allModels' => $model->customerNotes,
-//        ]);
-//        $providerCustomerReminders = new \yii\data\ArrayDataProvider([
-//            'allModels' => $model->customerReminders,
-//        ]);
-//        $providerCustomerShippingAddress = new \yii\data\ArrayDataProvider([
-//            'allModels' => $model->customerShippingAddresses,
-//        ]);
-//
-//        return $this->render('view', [
-//            'model'                           => $model,
-//            'providerCustomerBillingAddress'  => $providerCustomerBillingAddress,
-//            'providerCustomerNote'            => $providerCustomerNote,
-//            'providerCustomerReminders'       => $providerCustomerReminders,
-//            'providerCustomerShippingAddress' => $providerCustomerShippingAddress,
-//        ]);
-
+        //        $providerCustomerBillingAddress = new \yii\data\ArrayDataProvider([
+        //            'allModels' => $model->customerBillingAddresses,
+        //        ]);
+        //        $providerCustomerNote = new \yii\data\ArrayDataProvider([
+        //            'allModels' => $model->customerNotes,
+        //        ]);
+        //        $providerCustomerReminders = new \yii\data\ArrayDataProvider([
+        //            'allModels' => $model->customerReminders,
+        //        ]);
+        //        $providerCustomerShippingAddress = new \yii\data\ArrayDataProvider([
+        //            'allModels' => $model->customerShippingAddresses,
+        //        ]);
+        //
+        //        return $this->render('view', [
+        //            'model'                           => $model,
+        //            'providerCustomerBillingAddress'  => $providerCustomerBillingAddress,
+        //            'providerCustomerNote'            => $providerCustomerNote,
+        //            'providerCustomerReminders'       => $providerCustomerReminders,
+        //            'providerCustomerShippingAddress' => $providerCustomerShippingAddress,
+        //        ]);
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -86,7 +86,6 @@ class CustomerController extends Controller
         $model->language = get_primary_language();
         $model->status = STATUS_ACTIVE;
         $model->type = 'personal';
-
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             return $this->redirect([
                 'update',
@@ -134,9 +133,15 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->deleteWithRelated();
+        $model = $this->findModel($id);
+        if ($model->deleteWithRelated()) {
+            delete_seo_data($model->post_type, $model->primaryKey);
+            set_flash_success_delete_content();
+        } else {
+            set_flash_error_delete_content();
+        }
 
-        return $this->redirect(['index']);
+        return $this->goBack(request()->referrer);
     }
 
     /**
@@ -208,6 +213,37 @@ class CustomerController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     */
+    public function actionCreateUser($id)
+    {
+        $model = $this->findModel($id);
+        if (empty($model->user)) {
+            $user = new User([
+                'status'     => STATUS_ACTIVE,
+                'username'   => date('Ymdhis'),
+                'full_name'  => $model->first_name . ' ' . $model->last_name,
+                'company'    => $model->company,
+                'tax_number' => $model->vat_number,
+                'address'    => $model->address,
+                'avatar'     => $model->avatar,
+            ]);
+            $user->setPassword($model->email);
+            $user->generateAuthKey();
+            if ($user->save()) {
+                $model->user_id = $user->getPrimaryKey();
+                $model->save();
+            }
+        }
+
+        return $this->goBack(request()->referrer);
     }
 
     /**

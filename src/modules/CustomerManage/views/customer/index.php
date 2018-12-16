@@ -70,6 +70,34 @@ $this->registerJs($search);
             },
             'vAlign'    => GridView::ALIGN_MIDDLE,
         ],
+        [
+            'attribute'           => 'user_id',
+            'format'              => 'raw',
+            'label'               => t('app', 'User'),
+            'value'               => function($model) {
+                if ($model->user) {
+                    return $model->user->username;
+                } else {
+                    return \yii\helpers\Html::a('<span class="btn btn-xs purple">' . t('app', 'Create New User') . '</span>', url([
+                        'create-user',
+                        'id' => $model->id,
+                    ]), ['title' => t('app', 'Create New User')]);
+                }
+            },
+            'filterType'          => GridView::FILTER_SELECT2,
+            'filter'              => \yii\helpers\ArrayHelper::map(\thienhungho\UserManagement\models\User::find()
+                ->asArray()
+                ->all(), 'id', 'username'
+            ),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions'  => [
+                'placeholder' => t('app', 'User'),
+                'id'          => 'grid-post-search-author',
+            ],
+            'vAlign'              => GridView::ALIGN_MIDDLE,
+        ],
         //        [
         //            'attribute'           => 'user_id',
         //            'label'               => Yii::t('app', 'User'),
