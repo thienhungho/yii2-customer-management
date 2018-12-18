@@ -223,7 +223,12 @@ $this->registerJs($search);
             ],
         ],
     ];
-    $gridColumn[] = grid_view_default_active_column_cofig();
+    $active_column = grid_view_default_active_column_cofig();
+    $active_column['buttons']['create-new-order'] = function($url, $model) {
+        return \yii\helpers\Html::a('<span class="btn btn-xs purple"><span class="glyphicon glyphicon-shopping-cart"></span></span>', url(['/order-manage/order/create-for-user', 'user_id' => $model->user_id]), ['title' => t('app', 'Create New Ordre')]);
+    };
+    $active_column['template'] = '{view} {save-as-new} {update} {create-new-order} {delete}';
+    $gridColumn[] = $active_column;
     ?>
     <?= GridView::widget([
         'dataProvider'   => $dataProvider,

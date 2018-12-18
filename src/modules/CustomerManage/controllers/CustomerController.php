@@ -227,7 +227,7 @@ class CustomerController extends Controller
         $model = $this->findModel($id);
         if (empty($model->user)) {
             $user = new User([
-                'status'     => STATUS_ACTIVE,
+                'status'     => User::STATUS_ACTIVE,
                 'username'   => date('Ymdhis'),
                 'full_name'  => $model->first_name . ' ' . $model->last_name,
                 'company'    => $model->company,
