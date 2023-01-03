@@ -2,6 +2,8 @@ Yii2 Customer Management System
 ====================
 Customer Management System for Yii2
 
+This is just an example, memorible moment. The source code may not work for known reasons. This source code include against loss license feature.
+
 Installation
 ------------
 
